@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fech-cha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/10 17:21:30 by fech-cha          #+#    #+#             */
+/*   Updated: 2022/02/10 17:22:33 by fech-cha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "utils.h"
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-    int count ;
+	int	count ;
 
-    count = 0;
-    while (*str)
-    {
-        count++;
-        str++;
-    }
-    return (count);
+	count = 0;
+	while (*str)
+	{
+		count++;
+		str++;
+	}
+	return (count);
 }
 
 size_t	ft_strlcpy(char *dst, char *src, size_t size)
