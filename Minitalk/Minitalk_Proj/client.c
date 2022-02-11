@@ -6,7 +6,7 @@
 /*   By: fech-cha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 07:44:16 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/02/10 16:37:53 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/02/11 21:28:21 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,18 @@ void	ft_send_bit(char c, pid_t pid)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(100);
+		usleep(200);
 		bit--;
 		shift++;
 	}
+}
+
+int	check_pid(pid_t pid, char *str)
+{
+	if (pid == -1 || ft_strlen(str) > 5)
+		return (0);
+	else
+		return (1);
 }
 
 int	main(int argc, char **argv)
@@ -43,7 +51,7 @@ int	main(int argc, char **argv)
 		pid = ft_atoi(argv[1]);
 		string = ft_strdup(argv[2]);
 		len = ft_strlen(string) + 1;
-		while (len)
+		while (len && check_pid(pid, argv[1]))
 		{
 			ft_send_bit(*string, pid);
 			string++;

@@ -13,6 +13,14 @@
 #include "utils.h"
 #include "ft_printf.h"
 
+int	check_pid(pid_t pid, char *str)
+{
+	if (pid == -1 || pid == 0 || ft_strlen(str) > 5)
+		return (0);
+	else
+		return (1);
+}
+
 void	ft_send_bit(char c, pid_t pid)
 {
 	int	bit;
@@ -26,7 +34,7 @@ void	ft_send_bit(char c, pid_t pid)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(100);
+		usleep(200);
 		bit--;
 		shift++;
 	}
@@ -50,7 +58,7 @@ int	main(int argc, char **argv)
 		string = ft_strdup(argv[2]);
 		len = ft_strlen(string) + 1;
 		signal(SIGUSR1, signal_back_handler);
-		while (len)
+		while (len && check_pid(pid, argv[1]))
 		{
 			ft_send_bit(*string, pid);
 			string++;

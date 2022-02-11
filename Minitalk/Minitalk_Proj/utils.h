@@ -28,5 +28,8 @@ size_t	ft_strlcpy(char *dst, char *src, size_t size);
 int		ft_atoi(const char *str);
 int		ft_strlen(char *str);
 void	ft_send_bit(char c, pid_t pid);
+int		check_pid(pid_t pid, char *str);
+void	handle_sigusr(int sign, siginfo_t *sig_info, void *ign);
+void	signal_back_handler(int signum);
 
 #endif

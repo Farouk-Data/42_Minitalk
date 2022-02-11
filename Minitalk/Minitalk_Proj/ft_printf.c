@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	ft_testing(char arge, va_list format)
+int	ft_testing( char arge, va_list format)
 {
 	int	count;
 

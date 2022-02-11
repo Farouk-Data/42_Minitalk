@@ -13,7 +13,7 @@
 #include "utils.h"
 #include "ft_printf.h"
 
-int	g_pid = 0;
+int	g_pid = -1;
 
 void	handle_sigusr(int sign, siginfo_t *sig_info, void *ign)
 {
@@ -21,7 +21,7 @@ void	handle_sigusr(int sign, siginfo_t *sig_info, void *ign)
 	static int	index;
 
 	(void)ign;
-	if (g_pid != sig_info->si_pid)
+	if (g_pid != sig_info->si_pid && sig_info->si_pid != 0)
 	{
 		ascii = 0;
 		index = 0;
@@ -54,6 +54,6 @@ int	main(void)
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
-		usleep(100);
+		usleep(200);
 	return (0);
 }
