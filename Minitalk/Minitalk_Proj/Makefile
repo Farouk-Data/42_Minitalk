@@ -41,6 +41,8 @@ RM = rm -rf
 %.o :%.c utils.h printf.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
+all : $(SERVER) $(CLIENT) 
+
 $(SERVER) : $(OBJS_SERVER)
 	$(CC) $(OBJS_SERVER) -o $(SERVER)
 
@@ -53,7 +55,6 @@ $(SERVER_B) : $(OBJS_SERVER_B)
 $(CLIENT_B) : $(OBJS_CLIENT_B)
 	$(CC) $(OBJS_CLIENT_B) -o $(CLIENT_B)
 
-all : $(SERVER) $(CLIENT) 
 
 bonus : $(CLIENT_B) $(SERVER_B) 
 

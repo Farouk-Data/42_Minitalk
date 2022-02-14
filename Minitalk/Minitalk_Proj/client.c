@@ -6,7 +6,7 @@
 /*   By: fech-cha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 07:44:16 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/02/11 21:28:21 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/02/14 17:29:12 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_send_bit(char c, pid_t pid)
 
 int	check_pid(pid_t pid, char *str)
 {
-	if (pid == -1 || ft_strlen(str) > 5)
+	if (pid < 1 || ft_strlen(str) > 5)
 		return (0);
 	else
 		return (1);
@@ -42,20 +42,26 @@ int	check_pid(pid_t pid, char *str)
 
 int	main(int argc, char **argv)
 {
-	char	*string;
 	int		len;
 	pid_t	pid;
 
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
-		string = ft_strdup(argv[2]);
-		len = ft_strlen(string) + 1;
-		while (len && check_pid(pid, argv[1]))
+		len = ft_strlen(argv[2]) + 1;
+		if (!check_pid(pid, argv[1]))
 		{
-			ft_send_bit(*string, pid);
-			string++;
-			len--;
+			ft_printf("Invalid PID!\n");
+			exit(1);
+		}
+		else
+		{
+			while (len)
+			{
+				ft_send_bit(*argv[2], pid);
+				argv[2]++;
+				len--;
+			}
 		}
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: fech-cha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:30:08 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/02/10 16:41:37 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/02/14 17:29:45 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	check_pid(pid_t pid, char *str)
 {
-	if (pid == -1 || pid == 0 || ft_strlen(str) > 5)
+	if (pid < 1 || ft_strlen(str) > 5)
 		return (0);
 	else
 		return (1);
@@ -48,21 +48,27 @@ void	signal_back_handler(int signum)
 
 int	main(int argc, char **argv)
 {
-	char	*string;
 	int		len;
 	pid_t	pid;
 
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
-		string = ft_strdup(argv[2]);
-		len = ft_strlen(string) + 1;
-		signal(SIGUSR1, signal_back_handler);
-		while (len && check_pid(pid, argv[1]))
+		len = ft_strlen(argv[2]) + 1;
+		if (!check_pid(pid, argv[1]))
 		{
-			ft_send_bit(*string, pid);
-			string++;
-			len--;
+			ft_printf("Invalid PID!\n");
+			exit(1);
+		}
+		else
+		{
+			signal(SIGUSR1, signal_back_handler);
+			while (len)
+			{
+				ft_send_bit(*argv[2], pid);
+				argv[2]++;
+				len--;
+			}
 		}
 	}
 	else
